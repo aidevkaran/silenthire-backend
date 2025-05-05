@@ -1,0 +1,23 @@
+// index.js
+const express = require("express");
+const cors = require("cors");
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+let profiles = [];
+
+app.post("/api/submit", (req, res) => {
+  const { skills, salary, expected } = req.body;
+  profiles.push({ skills, salary, expected });
+  console.log("New Profile:", { skills, salary, expected });
+  res.sendStatus(200);
+});
+
+app.get("/api/profiles", (req, res) => {
+  res.json(profiles);
+});
+
+app.listen(process.env.PORT || 3000, () =>
+  console.log("SilentHire backend running")
+);
